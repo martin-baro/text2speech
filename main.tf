@@ -4,11 +4,11 @@ provider "aws" {
     profile = "aws"
 }
 
-resource "aws_instance" "test" {
-    ami = "ami-09693313102a30b2c"
-    instance_type = "t2.micro"  
+module "Text2Speech" {
+    source = "./modules/"
 }
 
+/*
 data "aws_iam_user" "akarmi" {
     user_name = "martin"
 }
@@ -17,3 +17,4 @@ output "arn" {
     value = "${data.aws_iam_user.akarmi.arn}"
 }
 
+*/
