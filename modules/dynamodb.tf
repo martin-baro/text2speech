@@ -1,6 +1,6 @@
 
 
-resource "aws_dynamodb_table" "posts_dynmamodb_table" {
+resource "aws_dynamodb_table" "t2s_dynmamodb_table" {
     name = "t2s_posts"
     hash_key = "id"
 
@@ -11,7 +11,7 @@ resource "aws_dynamodb_table" "posts_dynmamodb_table" {
 
     tags = {
         Name = "Text to Speech dynamoDB table"
-        Environment = "production"
+        Environment = "Prod"
         App = "Text2Speech"  
   }
 }
