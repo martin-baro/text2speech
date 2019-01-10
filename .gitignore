@@ -12,7 +12,6 @@
 creds
 
 # zipped files for upload
-*.zip
-
+modules/*.zip
 
 
