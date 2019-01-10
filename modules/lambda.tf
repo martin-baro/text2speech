@@ -38,7 +38,7 @@ data "archive_file" "t2s_lambda_convert_to_audio_zip" {
     output_path = "modules/t2s_lambda_convert_to_audio.zip"
 }
 resource "aws_lambda_function" "t2s_lambda_convert_to_audio" {
-    filename = "modules/t2s_lambda_convert_to_audiot.zip"
+    filename = "modules/t2s_lambda_convert_to_audio.zip"
     function_name = "t2s_lambda_convert_to_audio"
     role = "${aws_iam_role.t2s_iam_role_for_lambda.arn}"
     handler = "t2s_lambda_convert_to_audio.lambda_handler"
@@ -53,11 +53,12 @@ resource "aws_lambda_function" "t2s_lambda_convert_to_audio" {
         }
     }
 }
-# Adding the SNS topic as trigger for the convert_to_audio function
-resource "aws_lambda_event_source_mapping" "t2s_lambda_trigger_convert_to_audio" {
-    event_source_arn = "${aws_sns_topic.t2s_sns_topic.arn}"
+resource "aws_lambda_permission" "t2s_lambda_permission_sns_trigger" {
+    statement_id = "AllowExecutionFromSNS"
+    action = "lambda:InvokeFunction"
     function_name = "${aws_lambda_function.t2s_lambda_convert_to_audio.arn}"
-    starting_position = "LATEST"
+    principal = "sns.amazonaws.com"
+    source_arn = "${aws_sns_topic.t2s_sns_topic.arn}"
 }
 
 /*

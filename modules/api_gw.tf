@@ -17,7 +17,12 @@ resource "aws_api_gateway_method" "t2s_api_gw_GET" {
     resource_id = "${aws_api_gateway_resource.t2s_api_gw.id}"
     http_method = "GET"
     authorization = "NONE"
+
+    request_parameters = {
+        "method.request.querystring.searchText" = true 
+    }
 }
+
 #The GET method integration to the get_post Lambda function
 resource "aws_api_gateway_integration" "t2s_api_gw_GET_intergration" {
     rest_api_id = "${aws_api_gateway_rest_api.t2s_api_gw_rest_api.id}"
@@ -49,6 +54,7 @@ resource "aws_api_gateway_integration" "t2s_api_gw_POST_intergration" {
 }
 /*
 ----------------------- Enabling CORS ---------------------
+https://a.l3x.in/2018/07/25/lambda-api-custom-domain-tutorial.html
 */
 
 #The OPTIONS method for CORS
@@ -98,7 +104,7 @@ resource "aws_api_gateway_integration_response" "t2s_api_gw_OPTIONS_integration_
     rest_api_id = "${aws_api_gateway_rest_api.t2s_api_gw_rest_api.id}"
     resource_id = "${aws_api_gateway_resource.t2s_api_gw.id}"
     http_method = "${aws_api_gateway_method.t2s_api_gw_OPTIONS.http_method}"
-    status_code = "${aws_api_gateway_method_response.t2s_api_gw_OPTIONS_response.http_method}"
+    status_code = "${aws_api_gateway_method_response.t2s_api_gw_OPTIONS_response.status_code}"
 
     response_parameters = {
         "method.response.header.Access-Control-Allow-Headers" = "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
