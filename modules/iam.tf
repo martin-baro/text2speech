@@ -1,4 +1,3 @@
-variable "t2s_s3_audio_bucket_name_c" {}
 
 
 resource "aws_iam_role_policy" "t2s_iam_role_policy" {
