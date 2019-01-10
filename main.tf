@@ -13,13 +13,3 @@ module "Text2Speech" {
     t2s_s3_audio_bucket_name_c = "${var.t2s_s3_audio_bucket_name}"
 }
 
-/*
-data "aws_iam_user" "akarmi" {
-    user_name = "martin"
-}
-
-output "arn" {
-    value = "${data.aws_iam_user.akarmi.arn}"
-}
-
-*/
