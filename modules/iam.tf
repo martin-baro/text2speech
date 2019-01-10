@@ -1,10 +1,11 @@
+variable "t2s_s3_audio_bucket_name_c" {}
 
 
+resource "aws_iam_role_policy" "t2s_iam_role_policy" {
+    name = "t2s_iam_role_policy"
+    role = "${aws_iam_role.t2s_iam_role_for_lambda.id}"
 
-resource "aws_iam_role" "t2s_iam_role_for_lambda" {
-    name = "t2s_iam_role"
-
-    assume_role_policy = <<EOF
+    policy = <<EOF
 {
    "Version": "2012-10-17",
    "Statement": [
@@ -29,6 +30,26 @@ resource "aws_iam_role" "t2s_iam_role_for_lambda" {
            ]
        }
    ]
+}
+EOF
+}
+
+resource "aws_iam_role" "t2s_iam_role_for_lambda" {
+    name = "t2s_iam_role"
+
+    assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": "sts:AssumeRole",
+      "Principal": {
+        "Service": "lambda.amazonaws.com"
+      },
+      "Effect": "Allow",
+      "Sid": ""
+    }
+  ]
 }
 EOF
 
