@@ -11,7 +11,9 @@
 # credentials
 creds
 
-# zipped files for upload
-*.zip
+# tmp dir
+tmp/*
+!tmp/readme.txt
+
 
 

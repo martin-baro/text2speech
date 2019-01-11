@@ -1,0 +1,70 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="styles.css">
+
+  </head>
+  <body>
+
+    <div id="content">
+
+      Voice:
+
+      <select id="voiceSelected">
+        <option value="Joanna">Joanna [US]</option>
+        <option value="Ivy">Ivy [US]</option>
+        <option value="Joey">Joey [US]</option>
+        <option value="Justin">Justin [US]</option>
+        <option value="Kendra">Kendra [US]</option>
+        <option value="Kimberly">Kimberly [US]</option>
+        <option value="Michael">Michael [US]</option>
+        <option value="Salli">Salli [US]</option>
+        <option value="Amy">Amy [GB]</option>
+        <option value="Brian">Brian [GB]</option>
+        <option value="Emma">Emma [GB]</option>
+        <option value="Lotte">Lotte [NL]</option>
+        <option value="Ruben">Ruben [NL]</option>
+      </select>
+
+      <input type="submit" value="Say it!" id="sayButton" class="buttons">
+
+      <span id="postIDreturned"></span>
+    </br></br>
+
+    <textarea id ="postText"></textarea>
+    <span id="charCounter">Characters: 0</span>
+
+    </br></br></br></br>
+	  Provide word to seach for it's Dutch article: <input type="text" id="searchArticle"> <input type="submit" class="buttons" value="Search" id="searchArticle">
+	  <span id="searchArticlereturned"></span>
+	
+    </br></br></br></br>
+      Provide text which you want to retrieve: <input type="text" id="searchText"> <input type="submit" class="buttons" value="Search" id="searchButton">
+      <br/>
+    </div>
+
+
+
+      <table id="posts">
+        <colgroup>
+          <col style="width:10%">
+          <col style="width:7%">
+          <col style="width:45%">
+          <col style="width:8%">
+          <col style="width:30%">
+        </colgroup>
+        <tbody>
+          <tr>
+            <th>Post ID</th>
+            <th>Voice</th>
+            <th>Post</th>
+            <th>Status</th>
+            <th>Player</th>
+          </tr>
+        </tbody>
+      </table>
+
+
+    <script src="scripts.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.min.js"></script>
+  </body>
+</html>
