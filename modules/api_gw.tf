@@ -30,9 +30,16 @@ resource "aws_api_gateway_integration" "t2s_api_gw_GET_intergration" {
     http_method = "${aws_api_gateway_method.t2s_api_gw_GET.http_method}"
 
     integration_http_method = "GET"
-    type = "AWS_PROXY"
+    type = "AWS"
     uri = "${aws_lambda_function.t2s_lambda_get_post.invoke_arn}"
 
+    request_templates {
+        "application/json" = <<EOF
+        {
+            "searchText" : "$input.params('searchText')"
+        }
+        EOF
+    }
 }
 #The POST method for the API GW
 resource "aws_api_gateway_method" "t2s_api_gw_POST" {
@@ -113,3 +120,17 @@ resource "aws_api_gateway_integration_response" "t2s_api_gw_OPTIONS_integration_
   }
 }
 
+/*
+------------------------Deploying the API GW -------------------------
+*/
+
+resource "aws_api_gateway_deployment" "t2s_api_gw_deploy" {
+    depends_on = ["aws_api_gateway_integration.t2s_api_gw_GET_intergration", "aws_api_gateway_integration.t2s_api_gw_POST_intergration", "aws_api_gateway_integration.t2s_api_gw_OPTIONS_integration"]
+
+    rest_api_id = "${aws_api_gateway_rest_api.t2s_api_gw_rest_api.id}"
+    stage_name = "Prod"
+}
+
+output "api_gw_url" {
+    value = "${aws_api_gateway_deployment.t2s_api_gw_deploy.invoke_url}"
+}
