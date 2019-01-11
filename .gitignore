@@ -11,7 +11,7 @@
 # credentials
 creds
 
-# tmp dir
+# keeping the tmp dir but not tracking anything
 tmp/*
 !tmp/readme.txt
 

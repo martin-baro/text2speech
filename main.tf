@@ -11,4 +11,8 @@ module "Text2Speech" {
 output "api_gw_url" {
   value = "${module.Text2Speech.api_gw_url}"
 }
+output "web_url" {
+  value = "${module.Text2Speech.website_url}"
+}
+
 

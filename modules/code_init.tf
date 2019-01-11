@@ -2,7 +2,7 @@
 
 data "template_file" "scripts_tpl" {
     depends_on = ["aws_api_gateway_deployment.t2s_api_gw_deploy"]
-    template = "${file("${path.cwd}/code/scripts.tpl")}"
+    template = "${file("${path.cwd}/code/scripts_template.js")}"
 
     vars {
         api_gw_url = "${aws_api_gateway_deployment.t2s_api_gw_deploy.invoke_url}"
