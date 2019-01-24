@@ -27,6 +27,19 @@ resource "aws_lambda_function" "t2s_lambda_new_post" {
     }
 }
 
+# Allow API GW to invoke this function
+resource "aws_lambda_permission" "t2s_lambda_new_post_permission" {
+  statement_id  = "AllowAPIGatewayInvoke"
+  action        = "lambda:InvokeFunction"
+  function_name = "${aws_lambda_function.t2s_lambda_new_post.arn}"
+  principal     = "apigateway.amazonaws.com"
+
+  # The /*/* portion grants access from any method on any resource
+  # within the API Gateway "REST API".
+  source_arn = "${aws_api_gateway_rest_api.t2s_api_gw_rest_api.execution_arn}/*/*/*"
+}
+
+
 /*
 ----------- Lambda function for converting the text to audio ---------------------
 */
@@ -86,4 +99,16 @@ resource "aws_lambda_function" "t2s_lambda_get_post" {
         }
     }
 
+}
+
+# Allow API GW to invoke this function
+resource "aws_lambda_permission" "t2s_lambda_get_post_permission" {
+  statement_id  = "AllowAPIGatewayInvoke2"
+  action        = "lambda:InvokeFunction"
+  function_name = "${aws_lambda_function.t2s_lambda_get_post.function_name}"
+  principal     = "apigateway.amazonaws.com"
+
+  # The /*/* portion grants access from any method on any resource
+  # within the API Gateway "REST API".
+  source_arn = "${aws_api_gateway_rest_api.t2s_api_gw_rest_api.execution_arn}/*/GET/*"
 }

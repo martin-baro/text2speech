@@ -23,13 +23,25 @@ resource "aws_api_gateway_method" "t2s_api_gw_GET" {
     }
 }
 
+resource "aws_api_gateway_method_response" "t2s_api_gw_GET_response" {
+    rest_api_id = "${aws_api_gateway_rest_api.t2s_api_gw_rest_api.id}"
+    resource_id = "${aws_api_gateway_resource.t2s_api_gw.id}"
+    http_method = "${aws_api_gateway_method.t2s_api_gw_GET.http_method}"
+
+    status_code = "200"
+
+    response_models {
+        "application/json" = "Empty"
+    }
+}
+
 #The GET method integration to the get_post Lambda function
 resource "aws_api_gateway_integration" "t2s_api_gw_GET_intergration" {
     rest_api_id = "${aws_api_gateway_rest_api.t2s_api_gw_rest_api.id}"
     resource_id = "${aws_api_gateway_resource.t2s_api_gw.id}"
     http_method = "${aws_api_gateway_method.t2s_api_gw_GET.http_method}"
 
-    integration_http_method = "GET"
+    integration_http_method = "POST"
     type = "AWS"
     uri = "${aws_lambda_function.t2s_lambda_get_post.invoke_arn}"
 
@@ -41,6 +53,15 @@ resource "aws_api_gateway_integration" "t2s_api_gw_GET_intergration" {
         EOF
     }
 }
+resource "aws_api_gateway_integration_response" "t2s_api_gw_GET_integration_response" {
+    depends_on = ["aws_api_gateway_integration.t2s_api_gw_GET_intergration"]
+    rest_api_id = "${aws_api_gateway_rest_api.t2s_api_gw_rest_api.id}"
+    resource_id = "${aws_api_gateway_resource.t2s_api_gw.id}"
+    http_method = "${aws_api_gateway_method.t2s_api_gw_GET.http_method}"
+    status_code = "${aws_api_gateway_method_response.t2s_api_gw_GET_response.status_code}"
+
+}
+
 #The POST method for the API GW
 resource "aws_api_gateway_method" "t2s_api_gw_POST" {
     rest_api_id = "${aws_api_gateway_rest_api.t2s_api_gw_rest_api.id}"
@@ -55,7 +76,7 @@ resource "aws_api_gateway_integration" "t2s_api_gw_POST_intergration" {
     http_method = "${aws_api_gateway_method.t2s_api_gw_POST.http_method}"
 
     integration_http_method = "POST"
-    type = "AWS_PROXY"
+    type = "AWS"
     uri = "${aws_lambda_function.t2s_lambda_new_post.invoke_arn}"
     
 }
