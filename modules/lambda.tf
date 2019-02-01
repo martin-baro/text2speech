@@ -63,6 +63,7 @@ resource "aws_lambda_function" "t2s_lambda_convert_to_audio" {
         variables = {
             SNS_TOPIC = "${aws_sns_topic.t2s_sns_topic.arn}"
             BUCKET_NAME = "${local.t2s_s3_audio_bucket_name}"
+            DB_TABLE_NAME = "t2s_posts" 
         }
     }
 }

@@ -19,8 +19,8 @@ document.getElementById("sayButton").onclick = function(){
 						get_voice_by_postId(inputData["text"])
 					}, 6000);
 	      },
-	      error:  function (event, jqXHR, ajaxSettings, thrownError) {
-			alert('[event:' + event + '], [jqXHR:' + jqXHR + '], [ajaxSettings:' + ajaxSettings + '], [thrownError:' + thrownError + '])');
+	      error:  function () {
+			alert('sayerror');
 			}
 	  });
 }
@@ -61,8 +61,8 @@ function get_voice_by_postId(searchText) {
 								</tr>");
 	        });
 				},
-				error:  function (event, jqXHR, ajaxSettings, thrownError) {
-					alert('[event:' + event + '], [jqXHR:' + jqXHR + '], [ajaxSettings:' + ajaxSettings + '], [thrownError:' + thrownError + '])');
+				error:  function () {
+					alert('get error');
 					}
 		});
 }

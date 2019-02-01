@@ -56,5 +56,5 @@ resource "aws_s3_bucket_object" "styles" {
 }
 
 output "website_url" {
-    value = "http:://${aws_s3_bucket.t2s_s3_static_website.website_endpoint}"
+    value = "http://${aws_s3_bucket.t2s_s3_static_website.website_endpoint}"
 }
