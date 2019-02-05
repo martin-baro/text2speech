@@ -15,7 +15,7 @@ The serverless webapp utilize S3 static website, API-GW, dynamoDB, Polly, etc to
 Application design is based on the following AWS guide:
 https://aws.amazon.com/blogs/machine-learning/build-your-own-text-to-speech-applications-with-amazon-polly/
 
-The App with this configuration only deploys English and Dutch languages, but can be extended by editing the  code/index.html '<select id="voiceSelected">' tag with correct voice names from the following site:
+The App with this configuration only deploys English and Dutch languages, but can be extended by editing the  code/index.html `<select id="voiceSelected">` tag with correct voice names from the following site:
   
 https://docs.aws.amazon.com/polly/latest/dg/voicelist.html
 
