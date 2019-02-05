@@ -4,10 +4,10 @@ Terraform configuration to deploy a serverless text to speech application on AWS
 ## Prerequisites
 
 - Install Terraform:
-  https://www.terraform.io/
+  - https://www.terraform.io/
 
 - Create an AWS account
-  AWS charges could apply! With reasonable usage it can work in free tier.
+  - AWS charges could apply! With reasonable usage it can work in free tier.
 
 ## The application
 
@@ -45,5 +45,5 @@ var.s3_static_website_bucket_name : the S3 globally unique bucket name for the s
 - Terraform will provide the following two outputs:
 ```
 api_gw_url : the invoke url for the API-GW
-web_url : the site url (default S3 domain name)
+web_url : the site url (default S3 domain name)   
 ```
