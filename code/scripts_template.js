@@ -71,19 +71,3 @@ document.getElementById("postText").onkeyup = function(){
 	var length = $(postText).val().length;
 	document.getElementById("charCounter").textContent="Characters: " + length;
 }
-
-document.getElementById("searchArticle").onclick = function(){
-
-	var searchWord = $('#searchWord').val();
-
-	$.ajax({
-				url: API_ENDPOINT + '?searchWord='+searchWord,
-				type: 'GET',
-				success: function (response) {
-					document.getElementById("searchArticlereturned").textContent="Correct article: " + response;
-	      },
-	      error:  function (event, jqXHR, ajaxSettings, thrownError) {
-			alert('[event:' + event + '], [jqXHR:' + jqXHR + '], [ajaxSettings:' + ajaxSettings + '], [thrownError:' + thrownError + '])');
-			}
-		});
-}

@@ -34,25 +34,39 @@ EOF
     }
 }
 
+# Upload static site files: html, js, css
 resource "aws_s3_bucket_object" "index" {
     bucket = "${aws_s3_bucket.t2s_s3_static_website.bucket}"
     key = "index.html"
     source = "code/index.html"
     content_type = "text/html"
+    etag = "${md5(file("code/index.html"))}"
 }
-resource "aws_s3_bucket_object" "scripts" {
-    depends_on = ["local_file.scripts_js"]
-    bucket = "${aws_s3_bucket.t2s_s3_static_website.bucket}"
-    key = "scripts.js"
-    source = "tmp/scripts.js"
-    content_type = "application/javascript"
-    etag   = "${md5(file("tmp/scripts.js"))}"
-}
+
 resource "aws_s3_bucket_object" "styles" {
     bucket = "${aws_s3_bucket.t2s_s3_static_website.bucket}"
     key = "styles.css"
     source = "code/styles.css"
     content_type = "text/css"
+    etag = "${md5(file("code/styles.css"))}"
+}
+
+#Rendering the js script with API_GW invoke url
+data "template_file" "scripts_tpl" {
+#    depends_on = ["aws_api_gateway_deployment.t2s_api_gw_deploy"]
+    template = "${file("${path.cwd}/code/scripts_template.js")}"
+
+    vars {
+        api_gw_url = "${aws_api_gateway_deployment.t2s_api_gw_deploy.invoke_url}"
+    }
+}
+resource "aws_s3_bucket_object" "scripts" {
+    bucket = "${aws_s3_bucket.t2s_s3_static_website.bucket}"
+    key = "scripts.js"
+    content = "${data.template_file.scripts_tpl.rendered}"
+#    source = "tmp/scripts.js"
+    content_type = "application/javascript"
+    etag   = "${md5(data.template_file.scripts_tpl.rendered)}"
 }
 
 output "website_url" {
